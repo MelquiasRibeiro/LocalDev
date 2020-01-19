@@ -2,6 +2,7 @@ const axios = require('axios');
 const Dev= require('../models/Dev');
 const parseArryAsString = require('../utils/parseStringAsArray');
 
+
 module.exports={
     async index (request,response){
         const devs =await Dev.find();
@@ -11,7 +12,7 @@ module.exports={
     },
 
     async store(request,response){
-        const{ github_username, techs}=request.body;
+        const{ github_username, techs,latitude,longitude}=request.body;
         
         let dev= await Dev.findOne({github_username});
 
@@ -22,7 +23,7 @@ module.exports={
         const techsArray= parseArryAsString(techs);
     
         const location = {
-            type:'point',
+            type:'Point',
             coordinates:[longitude, latitude]
         };
     
